@@ -1,14 +1,15 @@
 <?php
+
 namespace Tinywan\LimitTraffic;
 
 class Install
 {
-    const WEBMAN_PLUGIN = true;
+    public const WEBMAN_PLUGIN = true;
 
     /**
      * @var array
      */
-    protected static $pathRelation = array (
+    protected static $pathRelation = array(
   'config/plugin/tinywan/limit-traffic' => 'config/plugin/tinywan/limit-traffic',
 );
 
@@ -70,5 +71,4 @@ class Install
             remove_dir($path);
         }
     }
-    
 }

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Tinywan\LimitTraffic\Middleware;
 
-
 use Webman\Http\Request;
 use Webman\Http\Response;
 use Tinywan\LimitTraffic\RateLimit;

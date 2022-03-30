@@ -1,6 +1,6 @@
 {
   "name": "tinywan/limit-traffic",
-  "description": "limiting and controlling traffic  for webman plugin",
+  "description": "limiting and controlling traffic for webman plugin",
   "keywords": ["limit", "traffic", "webman", "plugin"],
   "type": "library",
   "license": "MIT",

@@ -9,14 +9,13 @@ declare(strict_types=1);
 
 namespace Tinywan\LimitTraffic;
 
-
 use support\Redis;
 
 class RateLimit
 {
-    const LIMIT_TRAFFIC_SCRIPT_SHA = 'limit:traffic:script';
+    public const LIMIT_TRAFFIC_SCRIPT_SHA = 'limit:traffic:script';
 
-    const LIMIT_TRAFFIC_PRE = 'limit:traffic:pre:';
+    public const LIMIT_TRAFFIC_PRE = 'limit:traffic:pre:';
 
     /**
      * 校测

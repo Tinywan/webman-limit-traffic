@@ -1,0 +1,26 @@
+{
+  "name": "tinywan/limit-traffic",
+  "description": "limiting and controlling traffic  for webman plugin",
+  "keywords": ["limit", "traffic", "webman", "plugin"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tinywan",
+      "email": "756684177@qq.com"
+    }
+  ],
+  "require": {
+    "ext-redis": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tinywan\\LimitTraffic\\": "src"
+    }
+  },
+  "require-dev": {
+    "workerman/webman": "^1.0",
+    "friendsofphp/php-cs-fixer": "^3.6",
+    "phpstan/phpstan": "^1.4"
+  }
+}

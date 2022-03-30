@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Tinywan\LimitTraffic\Middleware;
 
 
-use Tinywan\LimitTraffic\RateLimit;
 use Webman\Http\Request;
 use Webman\Http\Response;
+use Tinywan\LimitTraffic\RateLimit;
 use Webman\MiddlewareInterface;
 
 class LimitTrafficMiddleware implements MiddlewareInterface
@@ -25,12 +25,12 @@ class LimitTrafficMiddleware implements MiddlewareInterface
     public function process(Request $request, callable $handler): Response
     {
         if ($result = RateLimit::check()) {
-            return new Response(200, [
+            return new Response(429, [
                 'Content-Type' => 'application/json',
                 'X-Rate-Limit-Limit' => $result['limit'],
                 'X-Rate-Limit-Remaining' => $result['remaining'],
                 'X-Rate-Limit-Reset' => $result['reset']
-            ], 'Too Many Requests');
+            ], $result['body']);
         }
         return $handler($request);
     }

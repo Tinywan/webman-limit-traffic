@@ -43,12 +43,13 @@ luascript;
             Redis::set(self::LIMIT_TRAFFIC_SCRIPT_SHA, $scriptSha);
         }
         $limitKey = self::LIMIT_TRAFFIC_PRE . request()->getRealIp();
-        $result = Redis::evalSha($scriptSha, 1, $limitKey, $config['limit'], $config['window_time']);
+        $result = Redis::rawCommand('evalsha', $scriptSha, 1, $limitKey, $config['limit'], $config['window_time']);
         if ($result === 0) {
             return [
                 'limit' => $config['limit'],
                 'remaining' => $config['limit'] - Redis::get($limitKey),
-                'reset' => Redis::ttl($limitKey)
+                'reset' => Redis::ttl($limitKey),
+                'body' => $config['body']
             ];
         }
         return false;

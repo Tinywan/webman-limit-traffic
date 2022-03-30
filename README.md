@@ -1,6 +1,6 @@
-# webman-limit-traffic
+# limiting and controlling traffic for webman plugin
 
-默认情况下，每个服务端调用接口都有一定的频率限制，如超出限制请求频率限制时，调用对应接口会收到相应错误码。
+[![Latest Stable Version](http://poser.pugx.org/tinywan/limit-traffic/v)](https://packagist.org/packages/tinywan/limit-traffic) [![Total Downloads](http://poser.pugx.org/tinywan/limit-traffic/downloads)](https://packagist.org/packages/tinywan/limit-traffic) [![Latest Unstable Version](http://poser.pugx.org/tinywan/limit-traffic/v/unstable)](https://packagist.org/packages/tinywan/limit-traffic) [![License](http://poser.pugx.org/tinywan/limit-traffic/license)](https://packagist.org/packages/tinywan/limit-traffic)
 
 ## 安装
 

@@ -1,6 +1,6 @@
-# webman-limit-traffic
+# limiting and controlling traffic for webman plugin
 
-默认情况下，每个服务端调用接口都有一定的频率限制，如超出限制请求频率限制时，调用对应接口会收到相应错误码。
+[![Latest Stable Version](http://poser.pugx.org/tinywan/limit-traffic/v)](https://packagist.org/packages/tinywan/limit-traffic) [![Total Downloads](http://poser.pugx.org/tinywan/limit-traffic/downloads)](https://packagist.org/packages/tinywan/limit-traffic) [![Latest Unstable Version](http://poser.pugx.org/tinywan/limit-traffic/v/unstable)](https://packagist.org/packages/tinywan/limit-traffic) [![License](http://poser.pugx.org/tinywan/limit-traffic/license)](https://packagist.org/packages/tinywan/limit-traffic)
 
 ## 安装
 
@@ -53,11 +53,3 @@ Route::group('/blog', function () {
 - `X-Rate-Limit-Limit` 同一个时间段所允许的请求的最大数目
 - `X-Rate-Limit-Remaining` 在当前时间段内剩余的请求的数量
 - `X-Rate-Limit-Reset` 为了得到最大请求数所等待的秒数
-
-## Other
-
-```php
-vendor/bin/phpstan analyse src
-
-vendor/bin/php-cs-fixer fix src
-```

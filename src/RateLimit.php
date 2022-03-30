@@ -24,7 +24,7 @@ class RateLimit
      */
     public static function check()
     {
-        $config = config('plugin.tinywan.limit-traffic.app.traffic');
+        $config = config('plugin.tinywan.limit-traffic.app.limit');
         $scriptSha = Redis::get(self::LIMIT_TRAFFIC_SCRIPT_SHA);
         if (!$scriptSha) {
             $script = <<<luascript
@@ -39,11 +39,11 @@ class RateLimit
                 end
             end
 luascript;
-            $scriptSha = Redis::script('LOAD', $script);
+            $scriptSha = Redis::script('load', $script);
             Redis::set(self::LIMIT_TRAFFIC_SCRIPT_SHA, $scriptSha);
         }
         $limitKey = self::LIMIT_TRAFFIC_PRE . request()->getRealIp();
-        $result = Redis::evalSha($scriptSha, [$limitKey, $config['limit'], $config['window_time']], 1);
+        $result = Redis::evalSha($scriptSha, 1, $limitKey, $config['limit'], $config['window_time']);
         if ($result === 0) {
             return [
                 'limit' => $config['limit'],

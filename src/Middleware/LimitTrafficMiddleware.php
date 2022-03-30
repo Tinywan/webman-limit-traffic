@@ -19,12 +19,12 @@ class LimitTrafficMiddleware implements MiddlewareInterface
 {
     /**
      * @param Request $request
-     * @param callable $next
+     * @param callable $handler
      * @return Response
      */
-    public function process(Request $request, callable $next): Response
+    public function process(Request $request, callable $handler): Response
     {
-        if ($result = RateLimit::check(30,60)) {
+        if ($result = RateLimit::check()) {
             return new Response(200, [
                 'Content-Type' => 'application/json',
                 'X-Rate-Limit-Limit' => $result['limit'],
@@ -32,6 +32,6 @@ class LimitTrafficMiddleware implements MiddlewareInterface
                 'X-Rate-Limit-Reset' => $result['reset']
             ], 'Too Many Requests');
         }
-        return $next($request);
+        return $handler($request);
     }
 }

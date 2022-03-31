@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](http://poser.pugx.org/tinywan/limit-traffic/v)](https://packagist.org/packages/tinywan/limit-traffic) [![Total Downloads](http://poser.pugx.org/tinywan/limit-traffic/downloads)](https://packagist.org/packages/tinywan/limit-traffic) [![Latest Unstable Version](http://poser.pugx.org/tinywan/limit-traffic/v/unstable)](https://packagist.org/packages/tinywan/limit-traffic) [![License](http://poser.pugx.org/tinywan/limit-traffic/license)](https://packagist.org/packages/tinywan/limit-traffic)
 
+为防止滥用，你应该考虑对您的 API 限流。 例如，您可以限制每个用户 10 分钟内最多调用 API 100 次。 如果在规定的时间内接收了一个用户大量的请求，将返回响应状态代码 429 (这意味着过多的请求)。
 ## 安装
 
 ```shell
@@ -42,6 +43,13 @@ Route::any('/admin', [app\admin\controller\Index::class, 'index'])
 Route::group('/blog', function () {
    Route::any('/create', function () {return response('create');});
 })->middleware([Tinywan\LimitTraffic\Middleware\LimitTrafficMiddleware::class]);
+```
+
+## 🔏 返回允许的请求的最大数目及时间
+
+返回允许的请求的最大数目及时间，例如：`[100, 600]` 表示在 `600` 秒内最多 `100` 次的 API 调
+```php
+Tinywan\LimitTraffic\RateLimiter::getRateLimit(); // 返回 [100, 600]
 ```
 
 ## ⚠ 请求限制参考

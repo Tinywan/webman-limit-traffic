@@ -11,7 +11,7 @@ namespace Tinywan\LimitTraffic;
 
 use support\Redis;
 
-class RateLimit
+class RateLimiter
 {
     public const LIMIT_TRAFFIC_SCRIPT_SHA = 'limit:traffic:script';
 
@@ -52,5 +52,15 @@ luascript;
             ];
         }
         return false;
+    }
+
+    /**
+     * @desc: 返回允许的请求的最大数目及时间，例如，[100, 600] 表示在 600 秒内最多 100 次的 API 调
+     * @author Tinywan(ShaoBo Wan)
+     */
+    public static function getRateLimit(): array
+    {
+        $config = config('plugin.tinywan.limit-traffic.app.limit');
+        return [$config['limit'], $config['window_time']];
     }
 }

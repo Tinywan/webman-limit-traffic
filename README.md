@@ -1,4 +1,4 @@
-# based on lua script limiting and controlling traffic for webman plugin
+# based on lua script limiting traffic for webman plugin
 
 [![Latest Stable Version](http://poser.pugx.org/tinywan/limit-traffic/v)](https://packagist.org/packages/tinywan/limit-traffic) [![Total Downloads](http://poser.pugx.org/tinywan/limit-traffic/downloads)](https://packagist.org/packages/tinywan/limit-traffic) [![Latest Unstable Version](http://poser.pugx.org/tinywan/limit-traffic/v/unstable)](https://packagist.org/packages/tinywan/limit-traffic) [![License](http://poser.pugx.org/tinywan/limit-traffic/license)](https://packagist.org/packages/tinywan/limit-traffic)
 

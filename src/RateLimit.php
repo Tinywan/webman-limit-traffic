@@ -21,15 +21,15 @@ class RateLimit
      * 校测
      * @return array|false
      */
-    public static function check()
+    public static function traffic()
     {
         $config = config('plugin.tinywan.limit-traffic.app.limit');
         $scriptSha = Redis::get(self::LIMIT_TRAFFIC_SCRIPT_SHA);
         if (!$scriptSha) {
             $script = <<<luascript
-            local result = redis.call('SETNX',KEYS[1],1);
+            local result = redis.call('SETNX', KEYS[1], 1);
             if result == 1 then
-                return redis.call('expire',KEYS[1],ARGV[2])
+                return redis.call('expire', KEYS[1], ARGV[2])
             else
                 if tonumber(redis.call("GET", KEYS[1])) >= tonumber(ARGV[1]) then
                     return 0

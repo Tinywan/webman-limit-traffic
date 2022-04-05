@@ -24,12 +24,12 @@ class LimitTrafficMiddleware implements MiddlewareInterface
     public function process(Request $request, callable $handler): Response
     {
         if ($result = RateLimiter::traffic()) {
-            return new Response(429, [
+            return new Response($result['status'], [
                 'Content-Type' => 'application/json',
                 'X-Rate-Limit-Limit' => $result['limit'],
                 'X-Rate-Limit-Remaining' => $result['remaining'],
                 'X-Rate-Limit-Reset' => $result['reset']
-            ], json_encode(['code' => 0 ,'msg' => $result['body'], 'data' => null]));
+            ], json_encode($result['body']));
         }
         return $handler($request);
     }

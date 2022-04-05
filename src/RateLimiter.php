@@ -48,7 +48,8 @@ luascript;
                 'limit' => $config['limit'],
                 'remaining' => $config['limit'] - Redis::get($limitKey),
                 'reset' => Redis::ttl($limitKey),
-                'body' => $config['body']
+                'status' => $config['status'],
+                'body' => $config['body'],
             ];
         }
         return false;

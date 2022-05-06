@@ -62,6 +62,54 @@ Tinywan\LimitTraffic\RateLimiter::getRateLimit(); // 返回 [100, 600]
 - `X-Rate-Limit-Remaining` 在当前时间段内剩余的请求的数量
 - `X-Rate-Limit-Reset` 为了得到最大请求数所等待的秒数
 
+## 自定义自己的 Response
+
+> 使用场景
+- 每个项目有标准的统一输出，自定义返回内容
+- 前后端分离：前端要求返回的 `HTTP状态码`并不是 `429`，而是 `200` 或者其他
+- 响应的`body`不是 `{"code":0,"msg":"Too Many Requests"}`，而是 `{"error_code":200,"message":"Too Many Requests"}`等其他内容
+
+### 自定义HTTP状态码
+
+编辑 `config/plugin/tinywan/limit-traffic/app.php` 文件的 `status` HTTP 状态码（默认值是 `429`）
+
+### 自定义`body`返回内容
+
+编辑 `config/plugin/tinywan/limit-traffic/app.php` 文件的 `body` 的字段
+
+**默认选项是**
+```json
+{
+	"code": 0,
+	"msg": "Too Many Requests",
+	"data": null
+}
+```
+**自定义选项参考一**
+
+1、假设`status` HTTP 状态码设置为 `200`
+
+2、假设`body`的数组设为为
+
+```php
+'body' => [
+	'error_code' => 200,
+	'message' => '请求太多请稍后重试'
+]
+```
+
+则响应内容为
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+
+{
+	"error_code": 200,
+	"message": "请求太多请稍后重试"
+}
+```
+其他的可以根据自身业务自定义即可
+
 ## Other
 
 ```php

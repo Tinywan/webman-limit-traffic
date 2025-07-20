@@ -24,6 +24,13 @@ class RateLimiter
     public static function traffic()
     {
         $config = config('plugin.tinywan.limit-traffic.app.limit');
+        // 新增：判断当前请求方法是否在配置的限流方法内
+        if (isset($config['limit_method']) && is_array($config['limit_method'])) {
+            if (!in_array(strtoupper(request()->method()), $config['limit_method'])) {
+                // 当前请求方法不需要限流，直接返回 false 表示不过限
+                return false;
+            }
+        }
         $scriptSha = Redis::get(self::LIMIT_TRAFFIC_SCRIPT_SHA);
         if (!$scriptSha) {
             $script = <<<luascript

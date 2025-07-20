@@ -41,7 +41,7 @@ luascript;
             $scriptSha = Redis::script('load', $script);
             Redis::set(self::LIMIT_TRAFFIC_SCRIPT_SHA, $scriptSha);
         }
-        $limitKey = self::LIMIT_TRAFFIC_PRE . request()->getRealIp();
+        $limitKey = self::getLimitKey($config);
         $result = Redis::rawCommand('evalsha', $scriptSha, 1, $limitKey, $config['limit'], $config['window_time']);
         if ($result === 0) {
             return [
@@ -63,5 +63,36 @@ luascript;
     {
         $config = config('plugin.tinywan.limit-traffic.app.limit');
         return [$config['limit'], $config['window_time']];
+    }
+
+    /**
+     * @desc: 获取限流key
+     * @author kylin987
+     */
+    private static function getLimitKey($config): string
+    {
+        $limitKey = $config['limit_key'] ?? '';
+        // 默认按 IP 限流
+        if (empty($limitKey) || $limitKey === 'none') {
+            return self::LIMIT_TRAFFIC_PRE . md5(request()->getRealIp());
+        }
+        // 按 "来源.字段名" 拆分
+        [$source, $key] = explode('.', $limitKey . '.', 2);
+
+        switch (strtolower($source)) {
+            case 'get':
+                $keyValue = request()->get($key, 'none');
+                break;
+            case 'post':
+                $keyValue = request()->post($key, 'none');
+                break;
+            case 'header':
+                $keyValue = request()->header($key, 'none');
+                break;
+            default:
+                // fallback：IP
+                $keyValue = request()->getRealIp();
+        }
+        return self::LIMIT_TRAFFIC_PRE . md5($keyValue);
     }
 }

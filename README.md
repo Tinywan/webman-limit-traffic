@@ -73,6 +73,15 @@ Tinywan\LimitTraffic\RateLimiter::getRateLimit(); // 返回 [100, 600]
 
 编辑 `config/plugin/tinywan/limit-traffic/app.php` 文件的 `status` HTTP 状态码（默认值是 `429`）
 
+### 自定义限流键
+
+编辑 `config/plugin/tinywan/limit-traffic/app.php` 文件的 `limit_key` 限流键（默认值是 `none`）
+
+- `none 代表以ip作为限流键`
+- `get.id 代表以get请求的id作为限流键`
+- `post.access 代表以post请求的access作为限流键`
+- `header.token 代表以header请求的token作为限流键`
+
 ### 自定义`body`返回内容
 
 编辑 `config/plugin/tinywan/limit-traffic/app.php` 文件的 `body` 的字段
